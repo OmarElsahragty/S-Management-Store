@@ -1,0 +1,706 @@
+{
+  "info": {
+    "name": "Newbies",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "test",
+      "items": [
+        {
+          "name": "ping",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base-URL}}/ping",
+              "host": ["{{base-URL}}"],
+              "path": ["ping"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "auth",
+      "items": [
+        {
+          "name": "authenticate",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base-URL}}/authenticate",
+              "host": ["{{base-URL}}"],
+              "path": ["authenticate"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base-URL}}/register",
+              "host": ["{{base-URL}}"],
+              "path": ["register"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+
+    {
+      "name": "store",
+      "item": [
+        {
+          "name": "fetch list",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base-URL}}/stores",
+              "host": ["{{base-URL}}"],
+              "path": ["stores"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "(default: 10)"
+                },
+                {
+                  "key": "page",
+                  "value": "0",
+                  "description": "(default: 0)"
+                },
+                {
+                  "key": "sort",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "direction",
+                  "value": "1",
+                  "description": "{ direction: -1; asc => 1 } (default: 1)",
+                  "disabled": true
+                },
+                {
+                  "key": "showAll",
+                  "value": "true",
+                  "description": "(default: false)",
+                  "disabled": true
+                },
+                {
+                  "key": "projection",
+                  "description": "selected felids comma separated",
+                  "disabled": true
+                },
+                {
+                  "key": "filter",
+                  "description": "stringified search filter",
+                  "disabled": true
+                },
+                {
+                  "key": "operation",
+                  "description": "search filter operation { operation: and | or } (default: and)",
+                  "disabled": true
+                },
+                {
+                  "key": "intervals",
+                  "description": "intervals search filter { filed: string;  minimum?: number;  maximum?: number; }[]",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "fetch item",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base-URL}}/store/:id",
+              "host": ["{{base-URL}}"],
+              "path": ["store", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {},
+            "url": {
+              "raw": "{{base-URL}}/store",
+              "host": ["{{base-URL}}"],
+              "path": ["store"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "bulk-create",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {},
+            "url": {
+              "raw": "{{base-URL}}/stores",
+              "host": ["{{base-URL}}"],
+              "path": ["stores"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {},
+            "url": {
+              "raw": "{{base-URL}}/store/:id",
+              "host": ["{{base-URL}}"],
+              "path": ["store", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base-URL}}/store/:id",
+              "host": ["{{base-URL}}"],
+              "path": ["store", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+
+    {
+      "name": "warehouse",
+      "item": [
+        {
+          "name": "fetch list",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base-URL}}/warehouses",
+              "host": ["{{base-URL}}"],
+              "path": ["warehouses"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "(default: 10)"
+                },
+                {
+                  "key": "page",
+                  "value": "0",
+                  "description": "(default: 0)"
+                },
+                {
+                  "key": "sort",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "direction",
+                  "value": "1",
+                  "description": "{ direction: -1; asc => 1 } (default: 1)",
+                  "disabled": true
+                },
+                {
+                  "key": "showAll",
+                  "value": "true",
+                  "description": "(default: false)",
+                  "disabled": true
+                },
+                {
+                  "key": "projection",
+                  "description": "selected felids comma separated",
+                  "disabled": true
+                },
+                {
+                  "key": "filter",
+                  "description": "stringified search filter",
+                  "disabled": true
+                },
+                {
+                  "key": "operation",
+                  "description": "search filter operation { operation: and | or } (default: and)",
+                  "disabled": true
+                },
+                {
+                  "key": "intervals",
+                  "description": "intervals search filter { filed: string;  minimum?: number;  maximum?: number; }[]",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "fetch item",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base-URL}}/warehouse/:id",
+              "host": ["{{base-URL}}"],
+              "path": ["warehouse", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {},
+            "url": {
+              "raw": "{{base-URL}}/warehouse",
+              "host": ["{{base-URL}}"],
+              "path": ["warehouse"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "bulk-create",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {},
+            "url": {
+              "raw": "{{base-URL}}/warehouses",
+              "host": ["{{base-URL}}"],
+              "path": ["warehouses"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {},
+            "url": {
+              "raw": "{{base-URL}}/warehouse/:id",
+              "host": ["{{base-URL}}"],
+              "path": ["warehouse", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base-URL}}/warehouse/:id",
+              "host": ["{{base-URL}}"],
+              "path": ["warehouse", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+
+    {
+      "name": "notification",
+      "item": [
+        {
+          "name": "fetch list",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base-URL}}/notifications",
+              "host": ["{{base-URL}}"],
+              "path": ["notifications"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "(default: 10)"
+                },
+                {
+                  "key": "page",
+                  "value": "0",
+                  "description": "(default: 0)"
+                },
+                {
+                  "key": "sort",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "direction",
+                  "value": "1",
+                  "description": "{ direction: -1; asc => 1 } (default: 1)",
+                  "disabled": true
+                },
+                {
+                  "key": "showAll",
+                  "value": "true",
+                  "description": "(default: false)",
+                  "disabled": true
+                },
+                {
+                  "key": "projection",
+                  "description": "selected felids comma separated",
+                  "disabled": true
+                },
+                {
+                  "key": "filter",
+                  "description": "stringified search filter",
+                  "disabled": true
+                },
+                {
+                  "key": "operation",
+                  "description": "search filter operation { operation: and | or } (default: and)",
+                  "disabled": true
+                },
+                {
+                  "key": "intervals",
+                  "description": "intervals search filter { filed: string;  minimum?: number;  maximum?: number; }[]",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "fetch item",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base-URL}}/notification/:id",
+              "host": ["{{base-URL}}"],
+              "path": ["notification", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {},
+            "url": {
+              "raw": "{{base-URL}}/notification",
+              "host": ["{{base-URL}}"],
+              "path": ["notification"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "bulk-create",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {},
+            "url": {
+              "raw": "{{base-URL}}/notifications",
+              "host": ["{{base-URL}}"],
+              "path": ["notifications"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {},
+            "url": {
+              "raw": "{{base-URL}}/notification/:id",
+              "host": ["{{base-URL}}"],
+              "path": ["notification", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base-URL}}/notification/:id",
+              "host": ["{{base-URL}}"],
+              "path": ["notification", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+
+    {
+      "name": "supplier",
+      "item": [
+        {
+          "name": "fetch list",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base-URL}}/suppliers",
+              "host": ["{{base-URL}}"],
+              "path": ["suppliers"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "(default: 10)"
+                },
+                {
+                  "key": "page",
+                  "value": "0",
+                  "description": "(default: 0)"
+                },
+                {
+                  "key": "sort",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "direction",
+                  "value": "1",
+                  "description": "{ direction: -1; asc => 1 } (default: 1)",
+                  "disabled": true
+                },
+                {
+                  "key": "showAll",
+                  "value": "true",
+                  "description": "(default: false)",
+                  "disabled": true
+                },
+                {
+                  "key": "projection",
+                  "description": "selected felids comma separated",
+                  "disabled": true
+                },
+                {
+                  "key": "filter",
+                  "description": "stringified search filter",
+                  "disabled": true
+                },
+                {
+                  "key": "operation",
+                  "description": "search filter operation { operation: and | or } (default: and)",
+                  "disabled": true
+                },
+                {
+                  "key": "intervals",
+                  "description": "intervals search filter { filed: string;  minimum?: number;  maximum?: number; }[]",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "fetch item",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base-URL}}/supplier/:id",
+              "host": ["{{base-URL}}"],
+              "path": ["supplier", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {},
+            "url": {
+              "raw": "{{base-URL}}/supplier",
+              "host": ["{{base-URL}}"],
+              "path": ["supplier"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "bulk-create",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {},
+            "url": {
+              "raw": "{{base-URL}}/suppliers",
+              "host": ["{{base-URL}}"],
+              "path": ["suppliers"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {},
+            "url": {
+              "raw": "{{base-URL}}/supplier/:id",
+              "host": ["{{base-URL}}"],
+              "path": ["supplier", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base-URL}}/supplier/:id",
+              "host": ["{{base-URL}}"],
+              "path": ["supplier", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base-URL",
+      "value": "127.0.0.1:5000/api",
+      "type": "string"
+    }
+  ]
+}
