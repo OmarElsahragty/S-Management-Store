@@ -5,13 +5,17 @@ import type { StoreInterface } from "../types";
 import type { Request, Response, NextFunction } from "express";
 
 class StoreController extends DefaultController<StoreInterface> {
-  constructor() {
+  public constructor() {
     super(storeService);
   }
 
-  authenticate = async (request: Request, res: Response, next: NextFunction) => {
-    return this.response(storeService.authenticate(request.body.username, request.body.password), res, next);
+  public authenticate = async (request: Request, response: Response, next: NextFunction): Promise<void> => {
+    await this.response(
+      storeService.authenticate(request.body as { username: string; password: string }),
+      response,
+      next
+    );
   };
 }
 
-export default new StoreController();
+export const storeController = new StoreController();

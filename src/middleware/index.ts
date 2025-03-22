@@ -1,2 +1,2 @@
-export { default as errorHandlerMiddleware } from "./errorHandler.middleware";
-export { default as validateMiddleware } from "./validation.middleware";
+export { errorHandlerMiddleware } from "./error-handler.middleware.ts";
+export { validateMiddleware } from "./validation.middleware";

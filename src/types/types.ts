@@ -4,14 +4,13 @@ import { fromZodError } from "zod-validation-error";
 import { databaseErrorParser } from "../helpers";
 import { logger } from "../libraries";
 
-import type * as schemas from "./schemas";
+import type { storeSchema, warehouseSchema, notificationSchema, supplierSchema } from "./schemas";
 import type { MongoServerError } from "mongodb";
-import type { ProjectionType } from "mongoose";
 import type { z } from "zod";
 
 declare module "express-serve-static-core" {
   interface Request {
-    client?: StoreInterface;
+    store?: StoreInterface;
   }
 }
 
@@ -19,9 +18,9 @@ declare module "express-serve-static-core" {
 
 export class Exception extends Error {
   public status = 500;
-  public message = "An error occurred. Please try again later.";
+  public override message = "An error occurred. Please try again later.";
 
-  constructor(public error?: Error | Exception | ZodError | MongoServerError) {
+  public constructor(public error?: Error | Exception | ZodError | MongoServerError) {
     super();
 
     if (!error) return this;
@@ -34,7 +33,7 @@ export class Exception extends Error {
     }
 
     const parsedMongoErrorMessage = error.name === "MongoServerError" && databaseErrorParser(error as MongoServerError);
-    if (parsedMongoErrorMessage) {
+    if (typeof parsedMongoErrorMessage === "string" && parsedMongoErrorMessage.trim()) {
       this.status = 400;
       this.message = parsedMongoErrorMessage;
       return this;
@@ -45,7 +44,7 @@ export class Exception extends Error {
 }
 
 export class NotFoundException extends Exception {
-  constructor(message = "Not Found") {
+  public constructor(message = "Not Found") {
     super();
     this.status = 404;
     this.message = message;
@@ -53,7 +52,7 @@ export class NotFoundException extends Exception {
 }
 
 export class UnauthorizedException extends Exception {
-  constructor(message = "Unauthorized") {
+  public constructor(message = "Unauthorized") {
     super();
     this.status = 401;
     this.message = message;
@@ -61,7 +60,7 @@ export class UnauthorizedException extends Exception {
 }
 
 export class ForbiddenException extends Exception {
-  constructor(message = "Forbidden") {
+  public constructor(message = "Forbidden") {
     super();
     this.status = 403;
     this.message = message;
@@ -75,17 +74,19 @@ interface EntityInformationInterface {
   isDeleted?: boolean;
 }
 
-export interface IntervalInterface {
-  filed: string;
-  minimum?: number;
-  maximum?: number;
-}
-
 export interface QueryOptionsInterface<T> {
   id?: string;
   filter?: Partial<T>;
-  intervals?: IntervalInterface[];
-  options?: { flattenQuery?: boolean; operation?: "and" | "or"; falsy?: boolean };
+  intervals?: Array<{ filed: string; minimum?: number; maximum?: number }>;
+  options?: { operation?: "and" | "or" };
+}
+
+export interface ListOptionsInterface {
+  page?: number;
+  pageLimit?: number;
+  sortBy?: string;
+  sortDirection?: 1 | -1;
+  showAll?: boolean;
 }
 
 export interface ListInterface<T> {
@@ -93,23 +94,14 @@ export interface ListInterface<T> {
   totalCount: number;
 }
 
-export interface ListOptionsInterface<T> {
-  page?: number;
-  pageLimit?: number;
-  sortBy?: string;
-  sortDirection?: 1 | -1;
-  showAll?: boolean;
-  projection?: ProjectionType<T>;
-}
-
 export interface ResponseInterface<T> {
   data?: T | T[];
-  metadata?: { errors: Array<{ status?: number; message: string; error?: Exception | ZodError | MongoServerError }> };
+  metadata?: { errors: Array<{ message: string; error?: Exception | ZodError | MongoServerError }> };
 }
 
 // ********************************* //
 
-export interface StoreInterface extends EntityInformationInterface, z.infer<typeof schemas.storeSchema> {}
-export interface WarehouseInterface extends EntityInformationInterface, z.infer<typeof schemas.warehouseSchema> {}
-export interface NotificationInterface extends EntityInformationInterface, z.infer<typeof schemas.notificationSchema> {}
-export interface SupplierInterface extends EntityInformationInterface, z.infer<typeof schemas.supplierSchema> {}
+export interface StoreInterface extends EntityInformationInterface, z.infer<typeof storeSchema> {}
+export interface WarehouseInterface extends EntityInformationInterface, z.infer<typeof warehouseSchema> {}
+export interface NotificationInterface extends EntityInformationInterface, z.infer<typeof notificationSchema> {}
+export interface SupplierInterface extends EntityInformationInterface, z.infer<typeof supplierSchema> {}

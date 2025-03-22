@@ -1,5 +1,3 @@
-import { flatten as unknownFlatten } from "flat";
-
 export const parser = <T = string>(text?: string): T | undefined => {
   if (!text) return;
 
@@ -10,6 +8,18 @@ export const parser = <T = string>(text?: string): T | undefined => {
   }
 };
 
-export const flatten = <T>(object: T): T => unknownFlatten(object);
+export const flatten = (data: object, parent?: string): object => {
+  return Object.entries(data).reduce((accumulator, element) => {
+    const key = parent ? `${element[0]}.${parent}` : element[0];
+    const value: unknown = element[1];
+    if (!value) return accumulator;
 
-export const removeUndefined = <T>(object: T): T => JSON.parse(JSON.stringify(object)) as T;
+    if (Array.isArray(value)) {
+      return { ...accumulator, [key]: value.map(item => (typeof item === "object" ? flatten(value, key) : value)) };
+    }
+
+    if (typeof value === "object") return { ...accumulator, [key]: flatten(value, key) };
+
+    return { ...accumulator, [key]: value };
+  }, {});
+};

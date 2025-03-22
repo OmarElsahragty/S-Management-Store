@@ -4,7 +4,7 @@ import { notificationModel } from "../models";
 import type { NotificationInterface } from "../../types";
 
 class NotificationRepository extends DefaultRepository<NotificationInterface> {
-  constructor() {
+  public constructor() {
     super(notificationModel, []);
   }
 }

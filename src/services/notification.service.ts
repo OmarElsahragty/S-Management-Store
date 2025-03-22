@@ -4,7 +4,7 @@ import { notificationRepository } from "../database/repositories";
 import type { NotificationInterface } from "../types";
 
 class NotificationService extends DefaultService<NotificationInterface> {
-  constructor() {
+  public constructor() {
     super(notificationRepository);
   }
 }

@@ -2,29 +2,29 @@ import { verify } from "jsonwebtoken";
 
 import config from "../../config";
 import { storeService } from "../services";
-import { ForbiddenException } from "../types";
+import { ForbiddenException, UnauthorizedException } from "../types";
 
-import type { StoreInterface } from "../types";
 import type { Request, Response, NextFunction } from "express";
 
-export default async (request: Request, _res: Response, next: NextFunction) => {
+export const authorizedGuard = async (request: Request, _response: Response, next: NextFunction): Promise<void> => {
   try {
     const token = request.headers.authorization;
+    if (!token) throw new ForbiddenException("Authorization token is missing");
 
-    const data = (await new Promise((resolve, reject): void | Partial<StoreInterface> => {
-      if (!token) return reject();
-
+    const { _id: storeId } = await new Promise<{ _id: string }>((resolve, reject) => {
       if (token.includes("Bearer")) {
-        return verify(token.replace("Bearer ", ""), config.jwt.secret, (error, result) =>
-          error || !result ? reject() : resolve(result)
-        );
+        return verify(token.replace("Bearer ", ""), config.jwt.secret, (error, jwtPayload) => {
+          const result = jwtPayload as undefined | { _id: string };
+          if (error || !result?._id) return reject(new ForbiddenException());
+          resolve(result);
+        });
       }
-    }).catch(() => {})) as void | Partial<StoreInterface>;
+      reject(new ForbiddenException());
+    });
 
-    const client = data?._id && (await storeService.fetch({ id: data._id }));
-
-    if (!client) throw new ForbiddenException();
-    request.client = client;
+    const store = await storeService.fetch({ id: storeId });
+    if (!store) throw new UnauthorizedException();
+    request.store = store;
 
     next();
   } catch (error) {

@@ -1,13 +1,14 @@
 import http from "node:http";
 
 import cors from "cors";
-import express from "express";
+import express, { json } from "express";
 import helmet from "helmet";
 
+import { logger } from "./libraries";
 import routes from "./routes";
 import socketIO from "./socket-io";
 
-import type { EnvironmentsEnum } from "./types";
+import type { EnvironmentEnum } from "./types";
 import type { Express } from "express";
 
 export default class HTTP {
@@ -15,9 +16,9 @@ export default class HTTP {
   private readonly express: Express;
   private readonly server: http.Server;
 
-  constructor(port: number, environment: EnvironmentsEnum) {
+  public constructor(port: number, environment: EnvironmentEnum) {
     this.port = port;
-    this.express = express().use(express.json()).use(cors());
+    this.express = express().use(json()).use(cors());
 
     if (environment === "PRODUCTION") this.express.use(helmet());
 
@@ -27,7 +28,7 @@ export default class HTTP {
     socketIO.setup(this.server);
   }
 
-  start() {
-    this.server.listen(this.port, () => console.log(`🚀 Server is running on port: ${this.port}`));
+  public start(): void {
+    this.server.listen(this.port, () => logger.info(`🚀 Server is running on port: ${this.port}`));
   }
 }

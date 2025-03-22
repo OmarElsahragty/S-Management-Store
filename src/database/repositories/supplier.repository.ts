@@ -4,7 +4,7 @@ import { supplierModel } from "../models";
 import type { SupplierInterface } from "../../types";
 
 class SupplierRepository extends DefaultRepository<SupplierInterface> {
-  constructor() {
+  public constructor() {
     super(supplierModel, []);
   }
 }

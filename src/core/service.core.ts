@@ -1,28 +1,33 @@
-import type { ListOptionsInterface, QueryOptionsInterface } from "../types";
-import type Repository from "./repository.core";
+import type { ListInterface, ListOptionsInterface, QueryOptionsInterface } from "../types";
+import type { DefaultRepository } from "./repository.core";
 
-export default class DefaultService<T> {
-  constructor(private readonly repository: Repository<T>) {}
+export class DefaultService<T> {
+  public constructor(private readonly repository: DefaultRepository<T>) {}
 
-  list = async (queryOptions: QueryOptionsInterface<T>, options?: ListOptionsInterface<T>) => {
+  public list = async (
+    queryOptions: QueryOptionsInterface<T>,
+    options?: ListOptionsInterface
+  ): Promise<ListInterface<T>> => {
     return this.repository.find(queryOptions, options);
   };
 
-  fetch = async (queryOptions: QueryOptionsInterface<T>) => {
+  public fetch = async (queryOptions: QueryOptionsInterface<T>): Promise<T | null> => {
     return this.repository.findOne(queryOptions);
   };
 
-  create = async (data: T) => {
+  public create = async (data: T): Promise<T> => {
     return this.repository.create(data);
   };
 
-  bulkCreate = (data: T[]): Array<Promise<T>> => data.map(async item => this.create(item));
+  public bulkCreate = (data: T[]): Array<Promise<T>> => {
+    return data.map(async item => this.create(item));
+  };
 
-  update = async (queryOptions: QueryOptionsInterface<T>, data: Partial<T>) => {
+  public update = async (queryOptions: QueryOptionsInterface<T>, data: Partial<T>): Promise<T | null> => {
     return this.repository.update(queryOptions, data);
   };
 
-  delete = async (queryOptions: QueryOptionsInterface<T>) => {
+  public delete = async (queryOptions: QueryOptionsInterface<T>): Promise<T | null> => {
     return this.repository.delete(queryOptions);
   };
 }

@@ -9,28 +9,26 @@ import { UnauthorizedException } from "../types";
 import type { StoreInterface } from "../types";
 
 class StoreService extends DefaultService<StoreInterface> {
-  constructor() {
+  public constructor() {
     super(storeRepository);
   }
 
   // ************** authentication ************** //
-  authenticate = async (
-    username: string,
-    password: string
-  ): Promise<{ client: Partial<StoreInterface>; token: string }> => {
-    const client = await storeRepository.findOne({ filter: { username, isDeleted: false } });
-    if (
-      !client ||
-      client.accessType === "DENIED" ||
-      !client.password ||
-      !(await verifyHash(client.password, password))
-    ) {
+  public authenticate = async ({
+    username,
+    password,
+  }: {
+    username: string;
+    password: string;
+  }): Promise<{ store: Partial<StoreInterface>; token: string }> => {
+    const store = await storeRepository.findOne({ filter: { username, isDeleted: false } });
+    if (!store || store.accessType === "DENIED" || !store.password || !(await verifyHash(store.password, password))) {
       throw new UnauthorizedException("Incorrect username or password");
     }
 
     return {
-      client,
-      token: `Bearer ${sign({ _id: client._id }, config.jwt.secret, { expiresIn: config.jwt.lifeTime })}`,
+      store,
+      token: `Bearer ${sign({ _id: store._id }, config.jwt.secret, { expiresIn: config.jwt.lifeTime })}`,
     };
   };
 }

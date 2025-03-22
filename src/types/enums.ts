@@ -1,11 +1,11 @@
 export const Environments = ["PRODUCTION", "DEVELOPMENT", "SEEDING"] as const;
-export type EnvironmentsEnum = (typeof Environments)[number];
+export type EnvironmentEnum = (typeof Environments)[number];
 
 export const SocketEvents = ["NOTIFICATION"] as const;
-export type SocketEventsEnum = (typeof SocketEvents)[number];
+export type SocketEventEnum = (typeof SocketEvents)[number];
 
 export const AccessTypes = ["ADMIN", "APPROVED", "DENIED"] as const;
-export type AccessTypesEnum = (typeof AccessTypes)[number];
+export type AccessTypeEnum = (typeof AccessTypes)[number];
 
 // ********************************* //
 
@@ -206,7 +206,7 @@ export const WarehouseItemCategories = [
   "PLANTS",
   "FOOD_BASKETS",
 ] as const;
-export type WarehouseItemCategoriesEnum = (typeof WarehouseItemCategories)[number];
+export type WarehouseItemCategoryEnum = (typeof WarehouseItemCategories)[number];
 
 export const Countries = [
   "AFGHANISTAN",
@@ -404,7 +404,7 @@ export const Countries = [
   "ZAMBIA",
   "ZIMBABWE",
 ] as const;
-export type CountriesEnum = (typeof Countries)[number];
+export type CountryEnum = (typeof Countries)[number];
 
 export const AgeGroups = ["INFANT", "TODDLER", "CHILD", "TEENAGER", "ADULT", "SENIOR"] as const;
 export type AgeGroupEnum = (typeof AgeGroups)[number];
@@ -413,4 +413,4 @@ export const QuantityUnits = ["KG", "LITER", "PIECE"] as const;
 export type QuantityUnitEnum = (typeof QuantityUnits)[number];
 
 export const NotificationTypes = ["LOW_STOCK_WARNING"] as const;
-export type NotificationTypesEnum = (typeof NotificationTypes)[number];
+export type NotificationTypeEnum = (typeof NotificationTypes)[number];

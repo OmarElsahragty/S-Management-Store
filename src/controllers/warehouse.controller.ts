@@ -4,9 +4,9 @@ import { warehouseService } from "../services";
 import type { WarehouseInterface } from "../types";
 
 class WarehouseController extends DefaultController<WarehouseInterface> {
-  constructor() {
+  public constructor() {
     super(warehouseService);
   }
 }
 
-export default new WarehouseController();
+export const warehouseController = new WarehouseController();

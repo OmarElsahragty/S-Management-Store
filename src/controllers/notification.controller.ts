@@ -4,9 +4,9 @@ import { notificationService } from "../services";
 import type { NotificationInterface } from "../types";
 
 class NotificationController extends DefaultController<NotificationInterface> {
-  constructor() {
+  public constructor() {
     super(notificationService);
   }
 }
 
-export default new NotificationController();
+export const notificationController = new NotificationController();

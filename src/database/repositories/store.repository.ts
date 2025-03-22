@@ -4,7 +4,7 @@ import { storeModel } from "../models";
 import type { StoreInterface } from "../../types";
 
 class StoreRepository extends DefaultRepository<StoreInterface> {
-  constructor() {
+  public constructor() {
     super(storeModel, []);
   }
 }

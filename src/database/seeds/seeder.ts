@@ -1,1 +1,1 @@
-export const seeder = async () => {};
+export const seeder = async (): Promise<void> => {};

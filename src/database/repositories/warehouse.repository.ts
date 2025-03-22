@@ -4,7 +4,7 @@ import { warehouseModel } from "../models";
 import type { WarehouseInterface } from "../../types";
 
 class WarehouseRepository extends DefaultRepository<WarehouseInterface> {
-  constructor() {
+  public constructor() {
     super(warehouseModel, []);
   }
 }

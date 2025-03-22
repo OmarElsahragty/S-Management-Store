@@ -1,7 +1,9 @@
 import { set, connect } from "mongoose";
 
-export const establishConnection = async (uri: string) => {
+import { logger } from "../libraries";
+
+export const establishConnection = async (uri: string): Promise<void> => {
   set("strictQuery", true);
 
-  return connect(uri).then(() => console.log("🗒️ Connected to mongoDB successfully"));
+  await connect(uri).then(() => logger.info("🗒️ Connected to mongoDB successfully"));
 };

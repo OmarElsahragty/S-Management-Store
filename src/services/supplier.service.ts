@@ -4,7 +4,7 @@ import { supplierRepository } from "../database/repositories";
 import type { SupplierInterface } from "../types";
 
 class SupplierService extends DefaultService<SupplierInterface> {
-  constructor() {
+  public constructor() {
     super(supplierRepository);
   }
 }

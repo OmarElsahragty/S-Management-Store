@@ -4,9 +4,9 @@ import { supplierService } from "../services";
 import type { SupplierInterface } from "../types";
 
 class SupplierController extends DefaultController<SupplierInterface> {
-  constructor() {
+  public constructor() {
     super(supplierService);
   }
 }
 
-export default new SupplierController();
+export const supplierController = new SupplierController();

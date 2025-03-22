@@ -1,1 +1,1 @@
-export { default as authorizedGuard } from "./authorization.guard";
+export { authorizedGuard } from "./authorization.guard";

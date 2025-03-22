@@ -4,7 +4,7 @@ import { warehouseRepository } from "../database/repositories";
 import type { WarehouseInterface } from "../types";
 
 class WarehouseService extends DefaultService<WarehouseInterface> {
-  constructor() {
+  public constructor() {
     super(warehouseRepository);
   }
 }
