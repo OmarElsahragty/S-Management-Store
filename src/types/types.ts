@@ -4,24 +4,24 @@ import { fromZodError } from "zod-validation-error";
 import { databaseErrorParser } from "../helpers";
 import { logger } from "../libraries";
 
-import type { storeSchema, warehouseSchema, notificationSchema, supplierSchema } from "./schemas";
+import type * as schemas from "./schemas";
 import type { MongoServerError } from "mongodb";
 import type { ProjectionType } from "mongoose";
 import type { z } from "zod";
 
 declare module "express-serve-static-core" {
-  interface RequestInterface {
+  interface Request {
     client?: StoreInterface;
   }
 }
 
 // ********************************* //
 
-class Exception extends Error {
+export class Exception extends Error {
   public status = 500;
-  public override message = "An error occurred. Please try again later.";
+  public message = "An error occurred. Please try again later.";
 
-  public constructor(public error?: Error | Exception | ZodError | MongoServerError) {
+  constructor(public error?: Error | Exception | ZodError | MongoServerError) {
     super();
 
     if (!error) return this;
@@ -34,7 +34,7 @@ class Exception extends Error {
     }
 
     const parsedMongoErrorMessage = error.name === "MongoServerError" && databaseErrorParser(error as MongoServerError);
-    if (typeof parsedMongoErrorMessage === "string" && parsedMongoErrorMessage.trim()) {
+    if (parsedMongoErrorMessage) {
       this.status = 400;
       this.message = parsedMongoErrorMessage;
       return this;
@@ -44,24 +44,24 @@ class Exception extends Error {
   }
 }
 
-class NotFoundException extends Exception {
-  public constructor(message = "Not Found") {
+export class NotFoundException extends Exception {
+  constructor(message = "Not Found") {
     super();
     this.status = 404;
     this.message = message;
   }
 }
 
-class UnauthorizedException extends Exception {
-  public constructor(message = "Unauthorized") {
+export class UnauthorizedException extends Exception {
+  constructor(message = "Unauthorized") {
     super();
     this.status = 401;
     this.message = message;
   }
 }
 
-class ForbiddenException extends Exception {
-  public constructor(message = "Forbidden") {
+export class ForbiddenException extends Exception {
+  constructor(message = "Forbidden") {
     super();
     this.status = 403;
     this.message = message;
@@ -74,8 +74,6 @@ interface EntityInformationInterface {
   updatedAt?: Date;
   isDeleted?: boolean;
 }
-
-export { ForbiddenException, UnauthorizedException, NotFoundException };
 
 export interface IntervalInterface {
   filed: string;
@@ -111,7 +109,7 @@ export interface ResponseInterface<T> {
 
 // ********************************* //
 
-export interface StoreInterface extends EntityInformationInterface, z.infer<typeof storeSchema> {}
-export interface WarehouseInterface extends EntityInformationInterface, z.infer<typeof warehouseSchema> {}
-export interface NotificationInterface extends EntityInformationInterface, z.infer<typeof notificationSchema> {}
-export interface SupplierInterface extends EntityInformationInterface, z.infer<typeof supplierSchema> {}
+export interface StoreInterface extends EntityInformationInterface, z.infer<typeof schemas.storeSchema> {}
+export interface WarehouseInterface extends EntityInformationInterface, z.infer<typeof schemas.warehouseSchema> {}
+export interface NotificationInterface extends EntityInformationInterface, z.infer<typeof schemas.notificationSchema> {}
+export interface SupplierInterface extends EntityInformationInterface, z.infer<typeof schemas.supplierSchema> {}
