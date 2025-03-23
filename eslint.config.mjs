@@ -309,6 +309,7 @@ export default [
           ignore: ["README.md"],
         },
       ],
+      "unicorn/prefer-top-level-await": "off",
       "unicorn/prefer-structured-clone": "off",
       "unicorn/no-array-reduce": "off",
       "unicorn/no-useless-undefined": "error",

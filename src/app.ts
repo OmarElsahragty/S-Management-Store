@@ -4,7 +4,7 @@ import { establishConnection } from "./database";
 import { logger } from "./libraries";
 import http from "./server";
 
-export const application = async (): Promise<void> => {
+export const application = async () => {
   try {
     await establishConnection(config.mongoURI);
     new http(config.port, config.environment).start();
