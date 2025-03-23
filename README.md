@@ -1,4 +1,4 @@
-# Newbie Generated Template
+# S Management Store
 
 ### Getting Started
 
