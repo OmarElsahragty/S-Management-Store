@@ -7,4 +7,6 @@ const run = async () => {
   if (config.environment === "SEEDING") return seeder();
 };
 
-run().catch(logger.error);
+run()
+  .then(() => logger.info("✅ Seeding completed successfully"))
+  .catch(logger.error);

@@ -10,7 +10,7 @@ import {
 } from "./enums";
 
 export const authSchema = z.object({
-  username: z.string().email(),
+  username: z.string(),
   password: z.string().optional(),
   accessType: z.enum(AccessTypes).optional(),
 });
@@ -19,6 +19,7 @@ export const authSchema = z.object({
 
 export const storeSchema = authSchema.merge(
   z.object({
+    email: z.string().email(),
     name: z.string(),
     type: z.string(),
     address: z.string(),

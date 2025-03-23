@@ -8,6 +8,7 @@ import type { StoreInterface } from "../../types";
 
 const storeSchema = new Schema<StoreInterface>(
   {
+    email: { type: String, trim: true, unique: true, required: true },
     name: { type: String, trim: true, required: true },
     type: { type: String, trim: true, required: true },
     address: { type: String, trim: true, required: true },

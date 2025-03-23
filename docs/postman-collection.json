@@ -1,12 +1,15 @@
 {
   "info": {
-    "name": "Newbies",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    "_postman_id": "66ae7e4d-28b2-4c0d-b531-030e6139ce9c",
+    "name": "S Management Store",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "13987369",
+    "_collection_link": "https://swisodev.postman.co/workspace/Affable~06d6d134-f3d1-4000-8780-315e2b870e5d/collection/13987369-66ae7e4d-28b2-4c0d-b531-030e6139ce9c?action=share&source=collection_link&creator=13987369"
   },
   "item": [
     {
       "name": "test",
-      "items": [
+      "item": [
         {
           "name": "ping",
           "request": {
@@ -24,12 +27,21 @@
     },
     {
       "name": "auth",
-      "items": [
+      "item": [
         {
           "name": "authenticate",
           "request": {
             "method": "POST",
             "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\": \"sahragty\",\n    \"password\": \"\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
             "url": {
               "raw": "{{base-URL}}/authenticate",
               "host": ["{{base-URL}}"],
@@ -43,6 +55,15 @@
           "request": {
             "method": "POST",
             "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\": \"sahragty\",\n    \"password\": \"\",\n    \"address\": \"12 Ismail Helmy St, Smouha, Alexandria Governorate, Egypt\",\n    \"email\": \"omar_elsahragty@hotmail.com\",\n    \"name\": \"Sahragty Market\",\n    \"phone\": \"+20 1111111111\",\n    \"type\": \"Supermarket\",\n    \"accessType\": \"ADMIN\",\n    \"long\": 0,\n    \"lat\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
             "url": {
               "raw": "{{base-URL}}/register",
               "host": ["{{base-URL}}"],
@@ -53,17 +74,25 @@
         }
       ]
     },
-
     {
       "name": "store",
       "item": [
         {
           "name": "fetch list",
           "request": {
-            "method": "GET",
+            "method": "POST",
             "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"id\": \"\",\n    \"filter\": {},\n    \"intervals\": [\n        {\n            \"filed\": \"\",\n            \"minimum\": 0,\n            \"maximum\": 0\n        }\n    ],\n    \"options\": {\n        \"operation\": \"and\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
             "url": {
-              "raw": "{{base-URL}}/stores",
+              "raw": "{{base-URL}}/stores?limit=10&page=0",
               "host": ["{{base-URL}}"],
               "path": ["stores"],
               "query": [
@@ -93,26 +122,6 @@
                   "value": "true",
                   "description": "(default: false)",
                   "disabled": true
-                },
-                {
-                  "key": "projection",
-                  "description": "selected felids comma separated",
-                  "disabled": true
-                },
-                {
-                  "key": "filter",
-                  "description": "stringified search filter",
-                  "disabled": true
-                },
-                {
-                  "key": "operation",
-                  "description": "search filter operation { operation: and | or } (default: and)",
-                  "disabled": true
-                },
-                {
-                  "key": "intervals",
-                  "description": "intervals search filter { filed: string;  minimum?: number;  maximum?: number; }[]",
-                  "disabled": true
                 }
               ]
             }
@@ -143,7 +152,6 @@
           "request": {
             "method": "POST",
             "header": [],
-            "body": {},
             "url": {
               "raw": "{{base-URL}}/store",
               "host": ["{{base-URL}}"],
@@ -157,7 +165,6 @@
           "request": {
             "method": "POST",
             "header": [],
-            "body": {},
             "url": {
               "raw": "{{base-URL}}/stores",
               "host": ["{{base-URL}}"],
@@ -171,7 +178,6 @@
           "request": {
             "method": "PUT",
             "header": [],
-            "body": {},
             "url": {
               "raw": "{{base-URL}}/store/:id",
               "host": ["{{base-URL}}"],
@@ -207,17 +213,25 @@
         }
       ]
     },
-
     {
       "name": "warehouse",
       "item": [
         {
           "name": "fetch list",
           "request": {
-            "method": "GET",
+            "method": "POST",
             "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"id\": \"\",\n    \"filter\": {},\n    \"intervals\": [\n        {\n            \"filed\": \"\",\n            \"minimum\": 0,\n            \"maximum\": 0\n        }\n    ],\n    \"options\": {\n        \"operation\": \"and\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
             "url": {
-              "raw": "{{base-URL}}/warehouses",
+              "raw": "{{base-URL}}/warehouses?limit=10&page=0",
               "host": ["{{base-URL}}"],
               "path": ["warehouses"],
               "query": [
@@ -247,26 +261,6 @@
                   "value": "true",
                   "description": "(default: false)",
                   "disabled": true
-                },
-                {
-                  "key": "projection",
-                  "description": "selected felids comma separated",
-                  "disabled": true
-                },
-                {
-                  "key": "filter",
-                  "description": "stringified search filter",
-                  "disabled": true
-                },
-                {
-                  "key": "operation",
-                  "description": "search filter operation { operation: and | or } (default: and)",
-                  "disabled": true
-                },
-                {
-                  "key": "intervals",
-                  "description": "intervals search filter { filed: string;  minimum?: number;  maximum?: number; }[]",
-                  "disabled": true
                 }
               ]
             }
@@ -297,7 +291,6 @@
           "request": {
             "method": "POST",
             "header": [],
-            "body": {},
             "url": {
               "raw": "{{base-URL}}/warehouse",
               "host": ["{{base-URL}}"],
@@ -311,7 +304,6 @@
           "request": {
             "method": "POST",
             "header": [],
-            "body": {},
             "url": {
               "raw": "{{base-URL}}/warehouses",
               "host": ["{{base-URL}}"],
@@ -325,7 +317,6 @@
           "request": {
             "method": "PUT",
             "header": [],
-            "body": {},
             "url": {
               "raw": "{{base-URL}}/warehouse/:id",
               "host": ["{{base-URL}}"],
@@ -361,17 +352,25 @@
         }
       ]
     },
-
     {
       "name": "notification",
       "item": [
         {
           "name": "fetch list",
           "request": {
-            "method": "GET",
+            "method": "POST",
             "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"id\": \"\",\n    \"filter\": {},\n    \"intervals\": [\n        {\n            \"filed\": \"\",\n            \"minimum\": 0,\n            \"maximum\": 0\n        }\n    ],\n    \"options\": {\n        \"operation\": \"and\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
             "url": {
-              "raw": "{{base-URL}}/notifications",
+              "raw": "{{base-URL}}/notifications?limit=10&page=0",
               "host": ["{{base-URL}}"],
               "path": ["notifications"],
               "query": [
@@ -401,26 +400,6 @@
                   "value": "true",
                   "description": "(default: false)",
                   "disabled": true
-                },
-                {
-                  "key": "projection",
-                  "description": "selected felids comma separated",
-                  "disabled": true
-                },
-                {
-                  "key": "filter",
-                  "description": "stringified search filter",
-                  "disabled": true
-                },
-                {
-                  "key": "operation",
-                  "description": "search filter operation { operation: and | or } (default: and)",
-                  "disabled": true
-                },
-                {
-                  "key": "intervals",
-                  "description": "intervals search filter { filed: string;  minimum?: number;  maximum?: number; }[]",
-                  "disabled": true
                 }
               ]
             }
@@ -451,7 +430,6 @@
           "request": {
             "method": "POST",
             "header": [],
-            "body": {},
             "url": {
               "raw": "{{base-URL}}/notification",
               "host": ["{{base-URL}}"],
@@ -465,7 +443,6 @@
           "request": {
             "method": "POST",
             "header": [],
-            "body": {},
             "url": {
               "raw": "{{base-URL}}/notifications",
               "host": ["{{base-URL}}"],
@@ -479,7 +456,6 @@
           "request": {
             "method": "PUT",
             "header": [],
-            "body": {},
             "url": {
               "raw": "{{base-URL}}/notification/:id",
               "host": ["{{base-URL}}"],
@@ -515,17 +491,25 @@
         }
       ]
     },
-
     {
       "name": "supplier",
       "item": [
         {
           "name": "fetch list",
           "request": {
-            "method": "GET",
+            "method": "POST",
             "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"id\": \"\",\n    \"filter\": {},\n    \"intervals\": [\n        {\n            \"filed\": \"\",\n            \"minimum\": 0,\n            \"maximum\": 0\n        }\n    ],\n    \"options\": {\n        \"operation\": \"and\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
             "url": {
-              "raw": "{{base-URL}}/suppliers",
+              "raw": "{{base-URL}}/suppliers?limit=10&page=0",
               "host": ["{{base-URL}}"],
               "path": ["suppliers"],
               "query": [
@@ -554,26 +538,6 @@
                   "key": "showAll",
                   "value": "true",
                   "description": "(default: false)",
-                  "disabled": true
-                },
-                {
-                  "key": "projection",
-                  "description": "selected felids comma separated",
-                  "disabled": true
-                },
-                {
-                  "key": "filter",
-                  "description": "stringified search filter",
-                  "disabled": true
-                },
-                {
-                  "key": "operation",
-                  "description": "search filter operation { operation: and | or } (default: and)",
-                  "disabled": true
-                },
-                {
-                  "key": "intervals",
-                  "description": "intervals search filter { filed: string;  minimum?: number;  maximum?: number; }[]",
                   "disabled": true
                 }
               ]
@@ -605,7 +569,6 @@
           "request": {
             "method": "POST",
             "header": [],
-            "body": {},
             "url": {
               "raw": "{{base-URL}}/supplier",
               "host": ["{{base-URL}}"],
@@ -619,7 +582,6 @@
           "request": {
             "method": "POST",
             "header": [],
-            "body": {},
             "url": {
               "raw": "{{base-URL}}/suppliers",
               "host": ["{{base-URL}}"],
@@ -633,7 +595,6 @@
           "request": {
             "method": "PUT",
             "header": [],
-            "body": {},
             "url": {
               "raw": "{{base-URL}}/supplier/:id",
               "host": ["{{base-URL}}"],
@@ -675,7 +636,7 @@
     "bearer": [
       {
         "key": "token",
-        "value": "",
+        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2RmZjRkNzkyY2Q0NGNiMjcxMWQzYTAiLCJpYXQiOjE3NDI3MzExNDEsImV4cCI6MTc3NDI4ODc0MX0.cFquBIVOeLqGG6q-gg74sXMa4CRrX3xxwdJ_kh_T-xI",
         "type": "string"
       }
     ]

@@ -8,7 +8,7 @@ const router = Router();
 
 router
   .route("/notifications")
-  .get(notificationController.list)
+  .post(notificationController.list)
   .post(
     validateMiddleware(notificationSchema, { isArray: true }),
     notificationController.bulkCreate

@@ -11,7 +11,7 @@ export default Object.freeze({
 
   port: Number.parseInt(process.env["PORT"] ?? "5000", 10),
 
-  mongoURI: process.env["MONGO_URI"] ?? "mongodb://127.0.0.1:27017/newbie",
+  mongoURI: process.env["MONGO_URI"] ?? "mongodb://127.0.0.1:27017/smstore",
 
   jwtSecret: process.env["JWT_SECRET"] ?? "%o@J5o02Kumnw^d@O",
 });

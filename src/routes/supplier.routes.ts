@@ -8,7 +8,7 @@ const router = Router();
 
 router
   .route("/suppliers")
-  .get(supplierController.list)
+  .post(supplierController.list)
   .post(validateMiddleware(supplierSchema, { isArray: true }), supplierController.bulkCreate);
 
 router.route("/supplier").post(validateMiddleware(supplierSchema), supplierController.create);
