@@ -1,10 +1,17 @@
 import { z } from "zod";
 
-import { AccessTypes, WarehouseItemCategories, Countries, AgeGroups, QuantityUnits, NotificationTypes } from "./enums";
+import {
+  AccessTypes,
+  WarehouseItemCategories,
+  Countries,
+  AgeGroups,
+  QuantityUnits,
+  NotificationTypes,
+} from "./enums";
 
 export const authSchema = z.object({
   username: z.string().email(),
-  password: z.string(),
+  password: z.string().optional(),
   accessType: z.enum(AccessTypes).optional(),
 });
 

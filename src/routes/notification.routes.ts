@@ -9,9 +9,14 @@ const router = Router();
 router
   .route("/notifications")
   .get(notificationController.list)
-  .post(validateMiddleware(notificationSchema, { isArray: true }), notificationController.bulkCreate);
+  .post(
+    validateMiddleware(notificationSchema, { isArray: true }),
+    notificationController.bulkCreate
+  );
 
-router.route("/notification").post(validateMiddleware(notificationSchema), notificationController.create);
+router
+  .route("/notification")
+  .post(validateMiddleware(notificationSchema), notificationController.create);
 
 router
   .route("/notification/:id")

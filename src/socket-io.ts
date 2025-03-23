@@ -8,25 +8,30 @@ import type { Server as httpServer } from "node:http";
 class SocketIO {
   private socket!: SocketIOServer;
 
-  setup(server: httpServer) {
+  public setup(server: httpServer): void {
     this.socket = new SocketIOServer(server, {
       cors: { origin: config.environment === "PRODUCTION" ? config.cors : "*" },
     });
-    this.socket.on("connection", socket => socket.on("join", async (room: string) => socket.join(room)));
+    this.socket.on("connection", (socket) =>
+      socket.on("join", async (room: string) => socket.join(room))
+    );
   }
 
-  emit(event: SocketEventEnum, data: any, rooms: string[] = []) {
+  public emit(event: SocketEventEnum, data: unknown, rooms: string[] = []): boolean {
     if (rooms.length === 0) return this.socket.emit(event, data);
-    for (const room of rooms) this.socket.sockets.to(room).emit(event, data);
+    return rooms.reduce(
+      (accumulator, room) => accumulator && this.socket.sockets.to(room).emit(event, data),
+      true
+    );
   }
 
-  on(event: SocketEventEnum, callBack: (...arguments_: any[]) => void) {
-    return this.socket.on(event, callBack);
+  public on(event: SocketEventEnum, callBack: (...arguments_: unknown[]) => void): void {
+    this.socket.on(event, callBack);
   }
 
-  off(event: SocketEventEnum, callBack: (...arguments_: any[]) => void) {
+  public off(event: SocketEventEnum, callBack: (...arguments_: unknown[]) => void): void {
     this.socket.off(event, callBack);
   }
 }
 
-export default new SocketIO();
+export const socketIO = new SocketIO();

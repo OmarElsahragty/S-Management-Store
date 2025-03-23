@@ -20,10 +20,13 @@ export class DefaultService<T> {
   };
 
   public bulkCreate = (data: T[]): Array<Promise<T>> => {
-    return data.map(async item => this.create(item));
+    return data.map(async (item) => this.create(item));
   };
 
-  public update = async (queryOptions: QueryOptionsInterface<T>, data: Partial<T>): Promise<T | null> => {
+  public update = async (
+    queryOptions: QueryOptionsInterface<T>,
+    data: Partial<T>
+  ): Promise<T | null> => {
     return this.repository.update(queryOptions, data);
   };
 

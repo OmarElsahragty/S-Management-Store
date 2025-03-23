@@ -12,9 +12,9 @@ import warehouseRoutes from "./warehouse.routes";
 
 const router = Router();
 
-router
-  .route("/ping")
-  .get((_request, response) => response.status(200).send({ alive: true, timestamp: new Date().toISOString() }));
+router.route("/ping").get((_request, response) => {
+  response.status(200).send({ alive: true, timestamp: new Date().toISOString() });
+});
 
 router.route("/register").post(validateMiddleware(storeSchema), storeController.create);
 router.route("/authenticate").post(validateMiddleware(authSchema), storeController.authenticate);

@@ -7,7 +7,7 @@ import type { Request, Response, NextFunction } from "express";
 export class DefaultController<T> {
   public constructor(private readonly service: DefaultService<T>) {}
 
-  public list = async (request: Request, response: Response, next: NextFunction): Promise<void> => {
+  public list = async (request: Request, response: Response, next: NextFunction) => {
     const queryOptions = request.body as QueryOptionsInterface<T>;
 
     await this.response(
@@ -23,19 +23,19 @@ export class DefaultController<T> {
     );
   };
 
-  public fetch = async (request: Request, response: Response, next: NextFunction): Promise<void> => {
+  public fetch = async (request: Request, response: Response, next: NextFunction) => {
     await this.response(this.service.fetch({ id: request.params["id"] as string }), response, next);
   };
 
-  public create = async (request: Request, response: Response, next: NextFunction): Promise<void> => {
+  public create = async (request: Request, response: Response, next: NextFunction) => {
     await this.response(this.service.create(request.body as T), response, next);
   };
 
-  public bulkCreate = async (request: Request, response: Response, next: NextFunction): Promise<void> => {
+  public bulkCreate = async (request: Request, response: Response, next: NextFunction) => {
     await this.response(this.service.bulkCreate(request.body as T[]), response, next);
   };
 
-  public update = async (request: Request, response: Response, next: NextFunction): Promise<void> => {
+  public update = async (request: Request, response: Response, next: NextFunction) => {
     await this.response(
       this.service.update({ id: request.params["id"] as string }, request.body as Partial<T>),
       response,
@@ -43,38 +43,46 @@ export class DefaultController<T> {
     );
   };
 
-  public delete = async (request: Request, response: Response, next: NextFunction): Promise<void> => {
-    await this.response(this.service.delete({ id: request.params["id"] as string }), response, next);
+  public delete = async (request: Request, response: Response, next: NextFunction) => {
+    await this.response(
+      this.service.delete({ id: request.params["id"] as string }),
+      response,
+      next
+    );
   };
 
   protected response = async <T>(
     logic: Promise<T> | Array<Promise<T>>,
     response: Response,
     next: NextFunction
-  ): Promise<Response<unknown, Record<string, unknown>> | void> => {
+  ) => {
     try {
       const data = await Promise.allSettled(Array.isArray(logic) ? logic : [logic]);
 
-      const { fulfilled = [], rejected = [] }: { fulfilled?: T[]; rejected?: Exception[] } = data.reduce(
-        (accumulator: { fulfilled: T[]; rejected: Exception[] }, item) => {
-          if (item.status === "fulfilled") {
-            return { ...accumulator, fulfilled: [...accumulator.fulfilled, item.value] };
-          }
-          return {
-            ...accumulator,
-            rejected: [...accumulator.rejected, new Exception(item.reason as Error)],
-          };
-        },
-        { fulfilled: [], rejected: [] }
-      );
+      const { fulfilled = [], rejected = [] }: { fulfilled?: T[]; rejected?: Exception[] } =
+        data.reduce(
+          (accumulator: { fulfilled: T[]; rejected: Exception[] }, item) => {
+            if (item.status === "fulfilled") {
+              return { ...accumulator, fulfilled: [...accumulator.fulfilled, item.value] };
+            }
+            return {
+              ...accumulator,
+              rejected: [...accumulator.rejected, new Exception(item.reason as Error)],
+            };
+          },
+          { fulfilled: [], rejected: [] }
+        );
 
       if (fulfilled.length === 0) next(rejected);
       if (fulfilled.length === 0 && rejected.length === 0) next(new NotFoundException());
 
-      return response
+      response
         .status(
           fulfilled.length === 0
-            ? rejected.reduce((accumulator: number, rejection) => Math.min(rejection.status, accumulator), 0)
+            ? rejected.reduce(
+                (accumulator: number, rejection) => Math.min(rejection.status, accumulator),
+                0
+              )
             : 200
         )
         .send({

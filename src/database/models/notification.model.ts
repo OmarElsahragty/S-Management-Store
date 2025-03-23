@@ -16,4 +16,7 @@ const notificationSchema = new Schema<NotificationInterface>(
   { timestamps: true, versionKey: false }
 ).index({ isDeleted: 1 });
 
-export const notificationModel = model<NotificationInterface>(schemas.notification, notificationSchema);
+export const notificationModel = model<NotificationInterface>(
+  schemas.notification,
+  notificationSchema
+);

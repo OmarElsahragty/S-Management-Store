@@ -22,13 +22,18 @@ class StoreService extends DefaultService<StoreInterface> {
     password: string;
   }): Promise<{ store: Partial<StoreInterface>; token: string }> => {
     const store = await storeRepository.findOne({ filter: { username, isDeleted: false } });
-    if (!store || store.accessType === "DENIED" || !store.password || !(await verifyHash(store.password, password))) {
+    if (
+      !store?.password ||
+      store.accessType === "DENIED" ||
+      !(await verifyHash(store.password, password))
+    ) {
       throw new UnauthorizedException("Incorrect username or password");
     }
 
+    delete store.password;
     return {
       store,
-      token: `Bearer ${sign({ _id: store._id }, config.jwt.secret, { expiresIn: config.jwt.lifeTime })}`,
+      token: `Bearer ${sign({ _id: store._id }, config.jwtSecret, { expiresIn: "1y" })}`,
     };
   };
 }

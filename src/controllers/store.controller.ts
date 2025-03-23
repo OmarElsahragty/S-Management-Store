@@ -9,8 +9,8 @@ class StoreController extends DefaultController<StoreInterface> {
     super(storeService);
   }
 
-  public authenticate = async (request: Request, response: Response, next: NextFunction): Promise<void> => {
-    await this.response(
+  public authenticate = async (request: Request, response: Response, next: NextFunction) => {
+    return this.response(
       storeService.authenticate(request.body as { username: string; password: string }),
       response,
       next

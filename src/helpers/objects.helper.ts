@@ -15,7 +15,10 @@ export const flatten = (data: object, parent?: string): object => {
     if (!value) return accumulator;
 
     if (Array.isArray(value)) {
-      return { ...accumulator, [key]: value.map(item => (typeof item === "object" ? flatten(value, key) : value)) };
+      return {
+        ...accumulator,
+        [key]: value.map((item) => (typeof item === "object" ? flatten(value, key) : value)),
+      };
     }
 
     if (typeof value === "object") return { ...accumulator, [key]: flatten(value, key) };

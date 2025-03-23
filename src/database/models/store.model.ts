@@ -21,7 +21,6 @@ const storeSchema = new Schema<StoreInterface>(
   },
   { timestamps: true, versionKey: false }
 )
-  .index({ username: 1 }, { unique: true })
   .index({ accessType: 1 })
   .index({ isDeleted: 1 });
 
@@ -29,14 +28,14 @@ const storeSchema = new Schema<StoreInterface>(
 storeSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
   if (this.password) this.password = await createHash(this.password);
-  next();
+  return next();
 });
 
 storeSchema.pre("findOneAndUpdate", async function (next) {
   const data = this.getUpdate() as StoreInterface;
   if (data.password) data.password = await createHash(data.password);
   this.setUpdate(data);
-  next();
+  return next();
 });
 
 export const storeModel = model<StoreInterface>(schemas.store, storeSchema);

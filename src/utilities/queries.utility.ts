@@ -15,8 +15,12 @@ export const isValidMongoId = (data: unknown): boolean => {
 
 const filterProperties = <T>(property: T): FilterQuery<T> => {
   if (Array.isArray(property)) return { $in: property };
-  if (isValidMongoId(property)) return new mongooseTypes.ObjectId(property as string | mongooseTypes.ObjectId);
-  if ((typeof property === "string" || typeof property === "number") && !Number.isNaN(new Date(property).getTime())) {
+  if (isValidMongoId(property))
+    return new mongooseTypes.ObjectId(property as string | mongooseTypes.ObjectId);
+  if (
+    (typeof property === "string" || typeof property === "number") &&
+    !Number.isNaN(new Date(property).getTime())
+  ) {
     return new Date(property);
   }
   if (typeof property === "string") return { $regex: property, $options: "i" };
@@ -35,10 +39,9 @@ export const queryBuilder = <T>({
 
   Object.assign(query, {
     [options.operation === "or" ? "$or" : "$and"]: Object.entries(flatten(filter)).reduce(
-      (accumulator: Array<Record<string, unknown>>, [key, value]) => [
-        { [key]: filterProperties(value) },
-        ...accumulator,
-      ],
+      (accumulator: Array<Record<string, unknown>>, [key, value]) => {
+        return [{ [key]: filterProperties(value) }, ...accumulator];
+      },
       []
     ),
   });

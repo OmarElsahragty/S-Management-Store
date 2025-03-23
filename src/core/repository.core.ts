@@ -11,7 +11,7 @@ export class DefaultRepository<T> {
   ) {}
 
   public count = async (queryOptions: QueryOptionsInterface<T>): Promise<number> => {
-    return this.model.count(queryBuilder<T>(queryOptions)).exec();
+    return this.model.countDocuments(queryBuilder<T>(queryOptions)).exec();
   };
 
   public find = async (
@@ -25,31 +25,36 @@ export class DefaultRepository<T> {
     if (!showAll) curser.skip(page * pageLimit).limit(pageLimit);
     if (this.population?.length) curser.populate(this.population);
 
-    const data: T[] = await curser.lean();
-    return { data, totalCount: showAll ? data.length : await this.model.count(query).exec() };
+    const data = (await curser.lean().exec()) as T[];
+    return {
+      data,
+      totalCount: showAll ? data.length : await this.model.countDocuments(query).exec(),
+    };
   };
 
   public findOne = async (queryOptions: QueryOptionsInterface<T>): Promise<T | null> => {
     const curser = this.model.findOne(queryBuilder<T>(queryOptions));
     if (this.population) curser.populate(this.population);
-    return curser.lean();
+    return curser.lean().exec() as Promise<T | null>;
   };
 
   public create = async (data: T): Promise<T> => {
     const curser = await this.model.create(data);
-    if (this.population?.length) await curser.populate(this.population);
     return curser.toObject();
   };
 
-  public update = async (queryOptions: QueryOptionsInterface<T>, data: UpdateQuery<T>): Promise<T | null> => {
+  public update = async (
+    queryOptions: QueryOptionsInterface<T>,
+    data: UpdateQuery<T>
+  ): Promise<T | null> => {
     const curser = this.model.findOneAndUpdate(queryBuilder<T>(queryOptions), flatten(data));
     if (this.population) curser.populate(this.population);
-    return curser.lean();
+    return curser.lean().exec() as Promise<T | null>;
   };
 
   public delete = async (queryOptions: QueryOptionsInterface<T>): Promise<T | null> => {
     const curser = this.model.findOneAndUpdate(queryBuilder<T>(queryOptions), { isDeleted: true });
     if (this.population) curser.populate(this.population);
-    return curser.lean();
+    return curser.lean().exec() as Promise<T | null>;
   };
 }

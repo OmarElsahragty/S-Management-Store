@@ -13,8 +13,5 @@ export default Object.freeze({
 
   mongoURI: process.env["MONGO_URI"] ?? "mongodb://127.0.0.1:27017/newbie",
 
-  jwt: {
-    secret: process.env["JWT_SECRET"] ?? "%o@J5o02Kumnw^d@O",
-    lifeTime: process.env["JWT_LIFE_TIME"] ?? "1y",
-  },
+  jwtSecret: process.env["JWT_SECRET"] ?? "%o@J5o02Kumnw^d@O",
 });

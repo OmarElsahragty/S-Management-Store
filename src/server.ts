@@ -6,7 +6,7 @@ import helmet from "helmet";
 
 import { logger } from "./libraries";
 import routes from "./routes";
-import socketIO from "./socket-io";
+import { socketIO } from "./socket-io";
 
 import type { EnvironmentEnum } from "./types";
 import type { Express } from "express";

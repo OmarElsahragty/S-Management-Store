@@ -5,7 +5,7 @@ import type { StoreInterface } from "../../types";
 
 class StoreRepository extends DefaultRepository<StoreInterface> {
   public constructor() {
-    super(storeModel, []);
+    super(storeModel);
   }
 }
 export const storeRepository = new StoreRepository();

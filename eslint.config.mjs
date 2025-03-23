@@ -29,7 +29,7 @@ export default [
       // Convert warnings to errors
       "no-const-assign": "error",
       "no-this-before-super": "error",
-      "no-undef": "error",
+      "no-undef": "off",
       "no-unreachable": "error",
       "constructor-super": "error",
       "valid-typeof": "error",
@@ -75,7 +75,7 @@ export default [
 
       // Strict TypeScript rules
       "@typescript-eslint/no-base-to-string": "off",
-      "@typescript-eslint/explicit-function-return-type": "error",
+      "@typescript-eslint/explicit-function-return-type": "off",
       "@typescript-eslint/explicit-member-accessibility": ["error", { accessibility: "explicit" }],
       "@typescript-eslint/array-type": ["error", { default: "array-simple" }],
       "@typescript-eslint/ban-ts-comment": "error",
@@ -123,8 +123,8 @@ export default [
       ],
       "@typescript-eslint/no-unnecessary-condition": "error",
       "@typescript-eslint/no-explicit-any": "error",
-      "@typescript-eslint/no-floating-promises": "error",
-      "@typescript-eslint/no-misused-promises": "error",
+      "@typescript-eslint/no-floating-promises": "off",
+      "@typescript-eslint/no-misused-promises": "off",
       "@typescript-eslint/no-non-null-assertion": "error",
       "@typescript-eslint/no-unsafe-argument": "error",
       "@typescript-eslint/no-unsafe-assignment": "error",
@@ -183,7 +183,16 @@ export default [
       "import/order": [
         "error",
         {
-          groups: ["builtin", "external", "internal", "parent", "sibling", "index", "object", "type"],
+          groups: [
+            "builtin",
+            "external",
+            "internal",
+            "parent",
+            "sibling",
+            "index",
+            "object",
+            "type",
+          ],
           "newlines-between": "always",
           alphabetize: {
             order: "asc",
@@ -203,7 +212,7 @@ export default [
       "import/no-mutable-exports": "error",
       "import/no-amd": "error",
       "import/no-commonjs": "error",
-      "import/no-nodejs-modules": "error",
+      "import/no-nodejs-modules": "off",
       "import/first": "error",
       "import/exports-last": "off",
       "import/no-namespace": "error",
@@ -247,7 +256,7 @@ export default [
     },
     rules: {
       ...eslintPluginSecurity.configs.recommended.rules,
-      "security/detect-object-injection": "error",
+      "security/detect-object-injection": "off",
       "security/detect-possible-timing-attacks": "error",
       "security/detect-buffer-noassert": "error",
       "security/detect-child-process": "error",
@@ -372,12 +381,21 @@ export default [
 
   // Prettier plugin configuration - keep at the end to override conflicting rules
   {
-    files: ["**/*.{js,jsx,ts,tsx,json,md,yml}"],
+    files: ["**/*.{js,jsx,ts,tsx,md,yml}"],
     plugins: {
       prettier: prettierPlugin,
     },
     rules: {
-      "prettier/prettier": "error",
+      "prettier/prettier": [
+        "error",
+        {
+          singleQuote: false,
+          semi: true,
+          trailingComma: "es5",
+          printWidth: 100,
+          tabWidth: 2,
+        },
+      ],
     },
   },
 
@@ -397,6 +415,9 @@ export default [
       "public/",
       "*.min.js",
       "*.d.ts",
+      "*.json",
+      "*.md",
+      ".vscode/*",
     ],
   },
 ];

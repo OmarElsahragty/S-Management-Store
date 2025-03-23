@@ -5,7 +5,7 @@ import type { WarehouseInterface } from "../../types";
 
 class WarehouseRepository extends DefaultRepository<WarehouseInterface> {
   public constructor() {
-    super(warehouseModel, []);
+    super(warehouseModel);
   }
 }
 export const warehouseRepository = new WarehouseRepository();

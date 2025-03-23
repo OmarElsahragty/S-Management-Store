@@ -32,7 +32,8 @@ export class Exception extends Error {
       return this;
     }
 
-    const parsedMongoErrorMessage = error.name === "MongoServerError" && databaseErrorParser(error as MongoServerError);
+    const parsedMongoErrorMessage =
+      error.name === "MongoServerError" && databaseErrorParser(error as MongoServerError);
     if (typeof parsedMongoErrorMessage === "string" && parsedMongoErrorMessage.trim()) {
       this.status = 400;
       this.message = parsedMongoErrorMessage;
@@ -96,12 +97,20 @@ export interface ListInterface<T> {
 
 export interface ResponseInterface<T> {
   data?: T | T[];
-  metadata?: { errors: Array<{ message: string; error?: Exception | ZodError | MongoServerError }> };
+  metadata?: {
+    errors: Array<{ message: string; error?: Exception | ZodError | MongoServerError }>;
+  };
 }
 
 // ********************************* //
 
 export interface StoreInterface extends EntityInformationInterface, z.infer<typeof storeSchema> {}
-export interface WarehouseInterface extends EntityInformationInterface, z.infer<typeof warehouseSchema> {}
-export interface NotificationInterface extends EntityInformationInterface, z.infer<typeof notificationSchema> {}
-export interface SupplierInterface extends EntityInformationInterface, z.infer<typeof supplierSchema> {}
+export interface WarehouseInterface
+  extends EntityInformationInterface,
+    z.infer<typeof warehouseSchema> {}
+export interface NotificationInterface
+  extends EntityInformationInterface,
+    z.infer<typeof notificationSchema> {}
+export interface SupplierInterface
+  extends EntityInformationInterface,
+    z.infer<typeof supplierSchema> {}

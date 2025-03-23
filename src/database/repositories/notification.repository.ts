@@ -5,7 +5,7 @@ import type { NotificationInterface } from "../../types";
 
 class NotificationRepository extends DefaultRepository<NotificationInterface> {
   public constructor() {
-    super(notificationModel, []);
+    super(notificationModel);
   }
 }
 export const notificationRepository = new NotificationRepository();

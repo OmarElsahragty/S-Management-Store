@@ -5,7 +5,7 @@ import type { SupplierInterface } from "../../types";
 
 class SupplierRepository extends DefaultRepository<SupplierInterface> {
   public constructor() {
-    super(supplierModel, []);
+    super(supplierModel);
   }
 }
 export const supplierRepository = new SupplierRepository();
